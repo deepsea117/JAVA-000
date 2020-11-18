@@ -1,0 +1,13 @@
+server:
+  port: 8000
+
+spring:
+  kafka:
+    # broker 列表，数组结构
+    bootstrap-servers:
+      - 127.0.0.1:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: spring.springboot.kafkaconfig.MySerializer
+    #  value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      max-request-size: 3
