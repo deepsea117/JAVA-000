@@ -1,0 +1,67 @@
+--用户表
+create table sys_user
+(
+    id           bigint auto_increment comment '用户id'
+        primary key,
+    user_name    varchar(32)                         not null comment '用户名称',
+    password     varchar(64)                         not null comment '登陆密码',
+    mobile_phone varchar(16) default '0000000000000' not null comment '手机号',
+    status       int                                 not null comment '用户状态。0正常；1已删除',
+    gender       int         default 0               not null comment '性别。0未知；1男；2女',
+    age          int         default 0               not null comment '年龄',
+    create_time  mediumtext                          not null comment '创建时间戳',
+    update_time  mediumtext                          not null comment '修改时间戳'
+)
+    comment '用户表';
+
+
+
+--商品表
+create table sys_product
+(
+    pd_id       bigint auto_increment comment '商品id'
+        primary key,
+    pd_code     varchar(32)                 not null comment '商品代码',
+    pd_name     varchar(64)                 not null comment '商品名称',
+    category    int                         not null comment '商品类别代号',
+    status      int                         not null comment '状态。0正常；1已下架',
+    price       decimal(16, 2) default 0.00 not null comment '标准定价',
+    store_num   int            default 0    not null comment '库存数量',
+    create_time bigint                      not null,
+    update_time bigint                      not null
+)
+    comment '商品表';
+
+
+
+--订单表
+create table sys_order
+(
+    id          bigint auto_increment comment '订单id'
+        primary key,
+    user_id     bigint         not null comment '下单用户id',
+    user_name   varchar(32)    not null comment '下单用户名称',
+    price       decimal(16, 2) not null comment '订单金额',
+    status      int            not null comment '订单状态。1已下单；2已支付；3已收货；4申请退货；5已退货；6订单完成',
+    create_time bigint         not null,
+    update_time bigint         not null
+)
+    comment '订单表';
+
+--订单明细表
+create table sys_order_detail
+(
+    id             bigint auto_increment
+        primary key,
+    order_id       bigint            not null comment '对应的订单id',
+    user_id        bigint            not null comment '对应的用户id',
+    pd_id          bigint            not null comment '商品ID',
+    pd_num         int     default 0 not null comment '商品数量',
+    price          decimal default 0 not null comment '商品单价',
+    total_price    decimal default 0 not null comment '商品总价',
+    discount_price decimal default 0 not null comment '购买商品时优惠券折扣等减免价格',
+    pay_price      decimal default 0 not null comment '实际支付价格',
+    create_time    bigint            not null,
+    update_time    bigint            not null
+)
+    comment '订单明细表';
