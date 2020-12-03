@@ -10,18 +10,19 @@ spring:
       username: root
       type: com.zaxxer.hikari.HikariDataSource
     cluster:
-      - key: slave1
+     -  key: slave1
         password: mysql123456
         url: jdbc:mysql://127.0.0.1:3306/geekbangstandby?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
         idle-timeout: 20000
         driver-class-name: com.mysql.cj.jdbc.Driver
         username: root
         type: com.zaxxer.hikari.HikariDataSource
-      - key: slave2
+     -  key: slave2
         password: mysql123456
         url: jdbc:mysql://127.0.0.1:3306/geekbangslave?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
         driver-class-name: com.mysql.cj.jdbc.Driver
         username: root
+        type: com.zaxxer.hikari.HikariDataSource
 
 
 mybatis:

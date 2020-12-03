@@ -1,6 +1,8 @@
-package com.geekbang.config;
+package com.geekbang.aop;
 
 import com.geekbang.annotation.DataSource;
+import com.geekbang.config.DynamicDataSource;
+import com.geekbang.config.DynamicDataSourceContextHolder;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -22,9 +24,10 @@ public class DynamicDataSourceAspect {
         String dsId = ds.value();
         if (DynamicDataSourceContextHolder.dataSourceIds.contains(dsId)) {
             logger.debug("Use DataSource :{} >", dsId, point.getSignature());
+            DynamicDataSourceContextHolder.setDataSourceRouterKey(dsId);
         } else {
             logger.info("数据源[{}]不存在，使用默认数据源 >{}", dsId, point.getSignature());
-            DynamicDataSourceContextHolder.setDataSourceRouterKey(dsId);
+            DynamicDataSourceContextHolder.setDataSourceRouterKey("master");
         }
     }
 

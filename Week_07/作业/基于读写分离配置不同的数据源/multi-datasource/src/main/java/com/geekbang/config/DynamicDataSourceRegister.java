@@ -1,7 +1,5 @@
 package com.geekbang.config;
 
-import com.geekbang.config.DynamicDataSource;
-import com.geekbang.config.DynamicDataSourceContextHolder;
 import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +28,7 @@ import java.util.Map;
  * 实现 ImportBeanDefinitionRegistrar 实现数据源注册
  * 实现 EnvironmentAware 用于读取application.yml配置
  */
+
 public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar, EnvironmentAware {
 
     private static final Logger logger = LoggerFactory.getLogger(DynamicDataSourceRegister.class);

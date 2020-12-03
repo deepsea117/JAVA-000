@@ -13,13 +13,13 @@ import javax.sql.DataSource;
 //@Configuration
 public class ClusterDataSourceConfig {
 
-    @Value("${spring.datasource.db2.url}")
+    @Value("${spring.datasource.cluster.url}")
     private String url;
-    @Value("${spring.datasource.driverClassName}")
+    @Value("${spring.datasource.cluster.driverClassName}")
     private String driverClassName;
-    @Value("${spring.datasource.db2.username}")
+    @Value("${spring.datasource.cluster.username}")
     private String username;
-    @Value("${spring.datasource.db2.password}")
+    @Value("${spring.datasource.cluster.password}")
     private String password;
 
 

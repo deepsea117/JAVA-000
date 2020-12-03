@@ -26,6 +26,16 @@
     <include refid="Base_Column_List" />
     from sys_product
   </select>
+  <select id="selectAllProductListSlave1" resultType="com.geekbang.model.SysProduct">
+    select
+    <include refid="Base_Column_List" />
+    from sys_product
+  </select>
+  <select id="selectAllProductListSlave2" resultType="com.geekbang.model.SysProduct">
+    select
+    <include refid="Base_Column_List" />
+    from sys_product
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from sys_product
     where pd_id = #{pdId,jdbcType=BIGINT}

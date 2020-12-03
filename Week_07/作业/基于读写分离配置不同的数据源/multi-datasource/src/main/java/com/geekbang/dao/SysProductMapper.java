@@ -1,5 +1,6 @@
 package com.geekbang.dao;
 
+import com.geekbang.annotation.DataSource;
 import com.geekbang.model.SysProduct;
 import org.springframework.boot.convert.DataSizeUnit;
 import org.springframework.stereotype.Repository;
@@ -21,5 +22,10 @@ public interface SysProductMapper {
 
     int updateByPrimaryKey(SysProduct record);
 
+
     List<SysProduct> selectAllProductList();
+    @DataSource("slave1")
+    List<SysProduct> selectAllProductListSlave1();
+    @DataSource("slave2")
+    List<SysProduct> selectAllProductListSlave2();
 }

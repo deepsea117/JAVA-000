@@ -14,9 +14,21 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/getProductList")
-    public List<SysProduct> getProductList(){
+    @GetMapping("/getslave1")
+    public List<SysProduct> getslave1(){
         List<SysProduct> sysProductList = productService.findAllProductList();
+        return sysProductList;
+    }
+
+    @GetMapping("/getslave2")
+    public List<SysProduct> getslave2(){
+        List<SysProduct> sysProductList = productService.findAllProductListSlave2();
+        return sysProductList;
+    }
+
+    @GetMapping("/getmaster")
+    public List<SysProduct> getmaster(){
+        List<SysProduct> sysProductList = productService.findAllProductListMaster();
         return sysProductList;
     }
 }
