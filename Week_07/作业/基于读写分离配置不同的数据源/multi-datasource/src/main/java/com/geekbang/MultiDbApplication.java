@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @MapperScan("com.geekbang.dao")
-@Import(DynamicDataSource.class)
+@Import(DynamicDataSourceRegister.class)
 public class MultiDbApplication {
 
     public static void main(String[] args) {
