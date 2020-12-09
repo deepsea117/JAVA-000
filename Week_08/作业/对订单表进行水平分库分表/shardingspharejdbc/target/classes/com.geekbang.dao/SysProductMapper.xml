@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geekbang.dao.SysProductMapper">
+  <resultMap id="BaseResultMap" type="com.geekbang.model.SysProduct">
+    <id column="pd_id" jdbcType="BIGINT" property="pdId" />
+    <result column="pd_code" property="pdCode" jdbcType="VARCHAR"  />
+    <result column="pd_name" jdbcType="VARCHAR" property="pdName" />
+    <result column="category" jdbcType="INTEGER" property="category" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="store_num" jdbcType="INTEGER" property="storeNum" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pd_id, pd_code, pd_name, category, status, price, store_num, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_product
+    where pd_id = #{pdId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAllProductList" resultType="com.geekbang.model.SysProduct">
+    select
+    <include refid="Base_Column_List" />
+    from sys_product
+  </select>
+  <select id="selectAllProductListSlave1" resultType="com.geekbang.model.SysProduct">
+    select
+    <include refid="Base_Column_List" />
+    from sys_product
+  </select>
+  <select id="selectAllProductListSlave2" resultType="com.geekbang.model.SysProduct">
+    select
+    <include refid="Base_Column_List" />
+    from sys_product
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_product
+    where pd_id = #{pdId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.geekbang.model.SysProduct">
+    insert into sys_product (pd_id, pd_code, pd_name, 
+      category, status, price, 
+      store_num, create_time, update_time
+      )
+    values (#{pdId,jdbcType=BIGINT}, #{pdCode,jdbcType=VARCHAR}, #{pdName,jdbcType=VARCHAR}, 
+      #{category,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
+      #{storeNum,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.geekbang.model.SysProduct">
+    insert into sys_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pdId != null">
+        pd_id,
+      </if>
+      <if test="pdCode != null">
+        pd_code,
+      </if>
+      <if test="pdName != null">
+        pd_name,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="storeNum != null">
+        store_num,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pdId != null">
+        #{pdId,jdbcType=BIGINT},
+      </if>
+      <if test="pdCode != null">
+        #{pdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pdName != null">
+        #{pdName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="storeNum != null">
+        #{storeNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.geekbang.model.SysProduct">
+    update sys_product
+    <set>
+      <if test="pdCode != null">
+        pd_code = #{pdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pdName != null">
+        pd_name = #{pdName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="storeNum != null">
+        store_num = #{storeNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where pd_id = #{pdId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.geekbang.model.SysProduct">
+    update sys_product
+    set pd_code = #{pdCode,jdbcType=VARCHAR},
+      pd_name = #{pdName,jdbcType=VARCHAR},
+      category = #{category,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      store_num = #{storeNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where pd_id = #{pdId,jdbcType=BIGINT}
+  </update>
+</mapper>

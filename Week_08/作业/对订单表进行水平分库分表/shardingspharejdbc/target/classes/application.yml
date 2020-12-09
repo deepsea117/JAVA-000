@@ -1,0 +1,66 @@
+server:
+  port: 8090
+
+spring:
+  shardingsphere:
+    datasource:
+      names: ds,ds0,ds1
+      ds:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/geekbang?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password: mysql123456
+      ds0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/geekbangstandby?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password: mysql123456
+      ds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/geekbangslave?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password: mysql123456
+    props:
+      sql:
+        show: true
+    sharding:
+      default-data-source-name: ds
+      # 默认主键生成策略
+      default-key-generator:
+        type: SNOWFLAKE
+        column: id
+      worker:
+        id: order # 雪花算法workid  还没想好多实例docker情况下如何配置
+      max:
+        tolerate:
+        time:
+          difference:
+          milliseconds: 1
+        # 默认分库策略 根据门店id 取模 这样虽然做不到数据平均分摊，但是每个门店的订单都统一在一个库下，方便join。
+        default-database-strategy:
+      inline:
+        shardingColumn: user_id
+        algorithmExpression: ds$->{user_id % 2}
+
+      tables:
+        sys_order:
+          actual-data-nodes: ds$->{0..1}.sys_order_$->{0..15}
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+          table-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: sys_order_$->{id % 16}
+
+
+
+
+mybatis:
+  type-aliases-package: com.geekbang.model
+  mapper-locations: classpath:com.geekbang.dao/*.xml
+  configuration:
+    map-underscore-to-camel-case: true

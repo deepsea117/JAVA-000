@@ -1,0 +1,48 @@
+server:
+  port: 8090
+
+spring:
+  shardingsphere:
+    datasource:
+      names: ds,ds0,ds1
+      ds:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/geekbang?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password: mysql123456
+      ds0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/geekbangstandby?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password: mysql123456
+      ds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/geekbangslave?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password: mysql123456
+    props:
+      sql:
+        show: true
+    sharding:
+      tables:
+        sys_order:
+          actual-data-nodes: ds0.sys_order_$->{0..16}
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+          table-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: sys_order_$->{id % 17}
+
+
+
+
+mybatis:
+  type-aliases-package: com.geekbang.model
+  mapper-locations: classpath:com.geekbang.dao/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
